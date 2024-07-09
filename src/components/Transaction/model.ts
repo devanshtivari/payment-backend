@@ -38,7 +38,7 @@ const Transaction = sequelize.define<ITransactionModel>(
     },
     {
         tableName: 'transaction',
-        timestamps: false
+        timestamps: true
     }
 )
 
