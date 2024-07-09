@@ -5,7 +5,7 @@
   "main": "./build/index.js",
   "scripts": {
     "build": "rimraf build && tsc --skipLibCheck",
-    "start": "rimraf build && tsc --skipLibCheck && node ./build/config/server/index.js",
+    "start": "node ./build/config/server/index.js",
     "ts:watch": "tsc -w",
     "dev:start": "nodemon ./src/server.ts",
     "test": " mocha -r ts-node/register test/index.js --exit",
