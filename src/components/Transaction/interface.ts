@@ -25,4 +25,11 @@ export interface ITransactionService {
      * @memberof TransactionService
      */
     addPrimaryData(): Promise<PromiseResolve>;
+
+    /**
+     * @param {number} pageNumber
+     * @returns {Promise<PromiseResolve>}
+     * @memberof TransactionService
+     */
+    getTransactionHistory(pageNumber: number): Promise<PromiseResolve>;
 }

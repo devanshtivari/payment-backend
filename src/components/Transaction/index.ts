@@ -45,3 +45,26 @@ export async function getBalance(req: Request, res: Response): Promise<any> {
         })
     }
 }
+
+/**
+ * @exports
+ * @param {Request} req
+ * @param {Response} res
+ * @returns {Promise<any>}
+ */
+export async function getTransactionHistory(req: Request, res: Response): Promise<any> {
+    try {
+        const {page} = req.params;
+        const transaction: PromiseResolve = await TransactionService.getTransactionHistory(Number(page));
+
+        return res.status(transaction.status).send(transaction)
+    } catch (error: any) {
+        console.log("Error in getTransactionHistory")
+
+        return res.status(error.status).send({
+            status: error.status || 400,
+            error: true,
+            message: error.message || 'Error in get transaction history'
+        })
+    }
+}
