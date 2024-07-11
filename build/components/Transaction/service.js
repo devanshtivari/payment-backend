@@ -113,7 +113,36 @@ const TransactionService = {
                 };
             }
         });
-    }
+    },
+    /**
+     * @param {number} pageNumber
+     * @returns {Promise<PromiseResolve>}
+     * @memberof TransactionService
+     */
+    getTransactionHistory(pageNumber) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const query = yield model_1.default.findAll({ raw: true, order: [['txnTime', 'DESC']], attributes: ['id', 'txnType', 'amount', 'txnTime'], limit: 10, offset: pageNumber * 10 });
+                if (query.length > 0) {
+                    return {
+                        status: 200,
+                        error: false,
+                        message: 'Data fetched Successfully',
+                        data: query
+                    };
+                }
+                throw new Error('No data in database');
+            }
+            catch (error) {
+                console.log(`getTransactionHistory error :: ${error}`);
+                return {
+                    status: 400,
+                    error: true,
+                    message: 'Error in fetching balance'
+                };
+            }
+        });
+    },
 };
 exports.default = TransactionService;
 //# sourceMappingURL=service.js.map

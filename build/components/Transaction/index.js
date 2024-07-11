@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getBalance = exports.addTransaction = void 0;
+exports.getTransactionHistory = exports.getBalance = exports.addTransaction = void 0;
 const service_1 = require("./service");
 /**
  * @exports
@@ -57,4 +57,28 @@ function getBalance(req, res) {
     });
 }
 exports.getBalance = getBalance;
+/**
+ * @exports
+ * @param {Request} req
+ * @param {Response} res
+ * @returns {Promise<any>}
+ */
+function getTransactionHistory(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { page } = req.params;
+            const transaction = yield service_1.default.getTransactionHistory(Number(page));
+            return res.status(transaction.status).send(transaction);
+        }
+        catch (error) {
+            console.log("Error in getTransactionHistory");
+            return res.status(error.status).send({
+                status: error.status || 400,
+                error: true,
+                message: error.message || 'Error in get transaction history'
+            });
+        }
+    });
+}
+exports.getTransactionHistory = getTransactionHistory;
 //# sourceMappingURL=index.js.map
