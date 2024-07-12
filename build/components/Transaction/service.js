@@ -128,7 +128,10 @@ const TransactionService = {
                         status: 200,
                         error: false,
                         message: 'Data fetched Successfully',
-                        data: query
+                        data: {
+                            rows: query,
+                            totalPages: Math.ceil(query.length / 10)
+                        }
                     };
                 }
                 throw new Error('No data in database');
