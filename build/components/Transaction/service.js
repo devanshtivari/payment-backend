@@ -122,7 +122,7 @@ const TransactionService = {
     getTransactionHistory(pageNumber) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const query = yield model_1.default.findAll({ raw: true, order: [['txnTime', 'DESC']], attributes: ['id', 'txnType', 'amount', 'txnTime'], limit: 10, offset: pageNumber * 10 });
+                const query = yield model_1.default.findAll({ raw: true, order: [['txnTime', 'DESC']], attributes: ['id', 'txnType', 'amount', 'txnTime'], limit: 5, offset: pageNumber * 5 });
                 const count = yield model_1.default.count();
                 if (query.length > 0) {
                     return {
@@ -131,7 +131,7 @@ const TransactionService = {
                         message: 'Data fetched Successfully',
                         data: {
                             rows: query,
-                            totalPages: Math.ceil(count / 10)
+                            totalPages: Math.ceil(count / 5)
                         }
                     };
                 }
