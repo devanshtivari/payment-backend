@@ -115,6 +115,7 @@ const TransactionService: ITransactionService = {
     async getTransactionHistory(pageNumber: number): Promise<PromiseResolve> {
         try {
             const query: ITransactionModel[] = await Transaction.findAll({ raw: true, order: [['txnTime', 'DESC']], attributes: ['id', 'txnType', 'amount', 'txnTime'] , limit: 10, offset: pageNumber*10 });
+            const count: number = await Transaction.count();
             if(query.length > 0) {
                 return {
                     status: 200,
@@ -122,7 +123,7 @@ const TransactionService: ITransactionService = {
                     message: 'Data fetched Successfully',
                     data: {
                         rows: query,
-                        totalPages: Math.ceil(query.length/10)
+                        totalPages: Math.ceil(count/10)
                     }
                 }
             }
